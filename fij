@@ -5,7 +5,7 @@
 if [ "$#" == "0" ]; then
 	echo Find In Jars
 	echo
-	echo usage: fij searchstring [jarfile [, jarfile...]]
+	echo usage: fij searchstring [jarfile [jarfile ...]]
 	echo if no jarfile arguments are given, program will
 	echo search all jar files found beneath the current directory.
 	echo
