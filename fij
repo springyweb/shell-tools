@@ -1,0 +1,36 @@
+#!/bin/sh
+
+# fij - Find In Jars
+
+if [ "$#" == "0" ]; then
+	echo Find In Jars
+	echo
+	echo usage: fij searchstring [jarfile [, jarfile...]]
+	echo if no jarfile arguments are given, program will
+	echo search all jar files found beneath the current directory.
+	echo
+	echo e.g. fij com.example.Example lib/file1.jar lib/file2.jar
+	exit 1
+fi
+
+searchstring=$1
+shift
+
+find_in_jar () {
+	unzip -l "$1" | grep -q $searchstring
+	if [[ $? -eq 0 ]]; then
+	  echo $1
+	fi
+}
+
+if [[ -n $1 ]]; then
+	while [[ -n $1 ]]; do
+		find_in_jar "$1"
+		shift
+	done
+else
+    find . -name \*.jar | while read file; do
+    	find_in_jar "$file"
+    done
+fi
+
